@@ -12,7 +12,6 @@ const fs = require('fs');
 const moment = require('moment');
 const mongodb = require('mongodb');
 const options = require('./src/options');
-const prettyjson = require('prettyjson');
 const printHelp = require('./src/printHelp');
 const spawn = require('child_process').spawn;
 const os = require('os');
@@ -192,9 +191,9 @@ function* run() {
       };
       const op = ops[data.op] || data.op;
 
-      let o = prettyjson.render(JSON.parse(JSON.stringify(data.o)));
+      let o = JSON.parse(JSON.stringify(data.o));
       if ('o2' in data) {
-        o = `${prettyjson.render(JSON.parse(JSON.stringify(data.o2)))} ${o}`;
+        o = `${JSON.parse(JSON.stringify(data.o2))} ${o}`;
       }
       console.log(chalk.blue(moment().format('YYYY-MM-DD HH:mm:ss')), data.ns, op);
       console.log(o);
