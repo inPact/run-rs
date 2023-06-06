@@ -27,8 +27,16 @@ module.exports = function download(version, systemLinux, os) {
         filename = `mongodb-linux-x86_64-${version}.tgz`;
         dirname = `mongodb-linux-x86_64-${version}`;
       } else {
-        filename = `mongodb-linux-x86_64-${systemLinux}-${version}.tgz`;
-        dirname = `mongodb-linux-x86_64-${systemLinux}-${version}`;
+        if (process.arch === 'arm64') {
+          //https://fastdl.mongodb.org/linux/mongodb-linux-arm64-ubuntu1604-4.0.28.tgz
+          base = 'https://fastdl.mongodb.org';
+          filename = `mongodb-linux-arm64-ubuntu1604-4.0.28.tgz`;
+          dirname = `mongodb-linux-x86_64-${systemLinux}-${version}`;
+        }
+        else {
+          filename = `mongodb-linux-x86_64-${systemLinux}-${version}.tgz`;
+          dirname = `mongodb-linux-x86_64-${systemLinux}-${version}`;
+        }
       }
       break;
     case 'darwin':
